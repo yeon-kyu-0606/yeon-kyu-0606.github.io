@@ -1,37 +1,105 @@
-## Welcome to GitHub Pages
+---
+layout: default
+---
 
-You can use the [editor on GitHub](https://github.com/yeon-kyu-0606/yeon-kyu-0606.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+{% if site.posts.size == 0 %}
+  <h2>No post found</h2>
+{% endif %}
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+<div class="posts">
+  
+  {% for post in site.posts %}
+    {% if post.pinned==true %}
+      <article class="post pinned">
+        <h1>
+            <span title="pinned"><i data-feather="anchor"></i></span><a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+        </h1>
 
-### Markdown
+        <div clsss="meta">
+          
+          <span class="author">
+            {{ post.author }}
+          </span>
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+          <span class="date">
+            {{ post.date | date: "%Y-%m-%d" }}
+          </span>
 
-```markdown
-Syntax highlighted code block
+          <ul class="tag">
+            {% for tag in post.tags %}
+            <li>
+              <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
+                {{ tag }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
 
-# Header 1
-## Header 2
-### Header 3
+          <script>
+            feather.replace()
+          </script>
+        </div>
 
-- Bulleted
-- List
+        <div class="entry">
+          {{ post.excerpt | truncate: 200 }}
+        </div>
 
-1. Numbered
-2. List
+        <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+      </article>
+    {% endif %}
+  {% endfor %}
+  
+  {% for post in paginator.posts %}
+    {% unless post.pinned %}
+    <article class="post">
+      <h1>
+        <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+      </h1>
 
-**Bold** and _Italic_ and `Code` text
+      <div clsss="meta">
+        
+        <span class="author">
+          {{ post.author }}
+        </span>
+            
+        <span class="date">
+          {{ post.date | date: "%Y-%m-%d" }}
+        </span>
 
-[Link](url) and ![Image](src)
-```
+        <ul class="tag">
+          {% for tag in post.tags %}
+          <li>
+            <a href="{{ site.url }}{{ site.baseurl }}/tags#{{ tag }}">
+              {{ tag }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+      <div class="entry">
+        {{ post.excerpt | truncate: 200 }}
+      </div>
 
-### Jekyll Themes
+      <a href="{{ site.baseurl }}{{ post.url }}" class="read-more">Read More</a>
+    </article>
+    {% endunless %}
+  {% endfor %}
+</div>
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/yeon-kyu-0606/yeon-kyu-0606.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+<div class="pagination">
+  {% if paginator.previous_page %}
+    <span class="prev">
+      <a href="{{ site.baseurl }}{{ paginator.previous_page_path }}" class="prev">
+        ← 上一页
+      </a>
+    </span>
+  {% endif %}
+  {% if paginator.next_page %}
+    <span class="next">
+      <a href="{{ site.baseurl}}{{ paginator.next_page_path }}" class="next">
+        下一页 →
+      </a>
+    </span>
+  {% endif %}
+</div>
