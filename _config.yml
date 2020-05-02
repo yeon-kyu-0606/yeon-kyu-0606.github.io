@@ -39,9 +39,9 @@ gitment:
     client_id: a6fb73b3e790e234bab8
     client_secret: cc10aaff53a03d05ab2ee002dbf401dd7627c7a3
 
-url: "https://bit-ranger.github.io/blog"
+url: "https://yeon-kyu-0606.github.io/"
 imgrepo: "https://bit-ranger.github.io/blog/static/img"
 
 
-#url: "https://yeon-kyu-0606.github.io/
+#url: "https://yeon-kyu-0606.github.io/"
 #imgrepo: "http://127.0.0.1:4000/static/img"
